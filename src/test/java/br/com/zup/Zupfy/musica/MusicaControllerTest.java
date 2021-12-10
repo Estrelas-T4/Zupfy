@@ -112,13 +112,11 @@ public class MusicaControllerTest {
 
     @Test
     public void testarDeletarMusciaNaoExiste() throws Exception {
-        Mockito.doThrow(MusicaNaoEcontradaExeception.class).when(musicaService).deletarMusica(Mockito.anyInt());
+        Mockito.doThrow(new MusicaNaoEcontradaExeception()).when(musicaService).deletarMusica(Mockito.anyInt());
 
         ResultActions resultado = mockMvc.perform(MockMvcRequestBuilders.delete("/musicas/"+musica.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(404));
-
-        Mockito.verify(musicaService, Mockito.times(0)).deletarMusica(Mockito.anyInt());
     }
 
 }
